@@ -1,5 +1,5 @@
 from fastapi import APIRouter, BackgroundTasks, Body, HTTPException
-from utils.anomaly_detection import IsolationForestTrainer, IsolationForestInference
+from utils.anomaly_detection import IsolationForestTrainer
 
 router = APIRouter()
 

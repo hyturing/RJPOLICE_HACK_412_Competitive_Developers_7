@@ -21,31 +21,31 @@ class IsolationForestTrainer:
         joblib.dump(self.model, model_path)
         print("Model trained and saved successfully.")
 
-class IsolationForestInference:
+# class IsolationForestInference:
 
-    def __init__(self):
-        model = None  
-        features = ['CustomerID', 'AccountBalance', 'LastLoginDays', 'Age', 'TransactionID', 'Amount']
+#     def __init__(self):
+#         model = None  
+#         features = ['CustomerID', 'AccountBalance', 'LastLoginDays', 'Age', 'TransactionID', 'Amount']
 
-    def load_model(self, model_path="static/anomaly_detection/model.joblib"):
-        self.model = joblib.load(model_path)
-        print("Model loaded successfully.")
+#     def load_model(self, model_path="static/anomaly_detection/model.joblib"):
+#         self.model = joblib.load(model_path)
+#         print("Model loaded successfully.")
 
-    def preprocess_input(self, input_data):
-        input_df = pd.DataFrame([input_data], columns=self.features)
-        input_df['LastLogin'] = pd.to_datetime(input_df['LastLogin']).copy()
-        input_df['LastLoginDays'] = (input_df['LastLogin'] - input_df['LastLogin'].min()).dt.days
-        return input_df
+#     def preprocess_input(self, input_data):
+#         input_df = pd.DataFrame([input_data], columns=self.features)
+#         input_df['LastLogin'] = pd.to_datetime(input_df['LastLogin']).copy()
+#         input_df['LastLoginDays'] = (input_df['LastLogin'] - input_df['LastLogin'].min()).dt.days
+#         return input_df
 
-    def inference_single_input(self, input_data):
-        if self.model is None:
-            raise ValueError("Model not loaded. Load the model using load_model method.")
+#     def inference_single_input(self, input_data):
+#         if self.model is None:
+#             raise ValueError("Model not loaded. Load the model using load_model method.")
 
-        input_df = self.preprocess_input(input_data)
+#         input_df = self.preprocess_input(input_data)
 
-        prediction = self.model.predict(input_df)
+#         prediction = self.model.predict(input_df)
 
-        return prediction
+#         return prediction
 
 # Example usage:
 # Training and saving the model
