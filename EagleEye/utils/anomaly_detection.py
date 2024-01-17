@@ -22,27 +22,28 @@ class IsolationForestTrainer:
         print("Model trained and saved successfully.")
 
 class IsolationForestInference:
-    model = None  
-    features = ['CustomerID', 'AccountBalance', 'LastLoginDays', 'Age', 'TransactionID', 'Amount']
 
-    @staticmethod
-    def load_model(model_path):
-        IsolationForestInference.model = joblib.load(model_path)
+    def __init__(self):
+        model = None  
+        features = ['CustomerID', 'AccountBalance', 'LastLoginDays', 'Age', 'TransactionID', 'Amount']
+
+    def load_model(self, model_path="static/anomaly_detection/model.joblib"):
+        self.model = joblib.load(model_path)
         print("Model loaded successfully.")
 
-    def preprocess_input(cls, input_data):
-        input_df = pd.DataFrame([input_data], columns=cls.features)
-        
-        input_df['LastLoginDays'] = (input_df['LastLoginDays'] - input_df['LastLoginDays'].min()).dt.days
+    def preprocess_input(self, input_data):
+        input_df = pd.DataFrame([input_data], columns=self.features)
+        input_df['LastLogin'] = pd.to_datetime(input_df['LastLogin']).copy()
+        input_df['LastLoginDays'] = (input_df['LastLogin'] - input_df['LastLogin'].min()).dt.days
         return input_df
 
-    def inference_single_input(cls, input_data):
-        if cls.model is None:
+    def inference_single_input(self, input_data):
+        if self.model is None:
             raise ValueError("Model not loaded. Load the model using load_model method.")
 
-        input_df = cls.preprocess_input(input_data)
+        input_df = self.preprocess_input(input_data)
 
-        prediction = cls.model.predict(input_df)
+        prediction = self.model.predict(input_df)
 
         return prediction
 

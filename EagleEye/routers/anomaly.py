@@ -1,15 +1,15 @@
 from fastapi import APIRouter, BackgroundTasks, Body, HTTPException
-from utils.anomaly_detection import IsolationForestTrainer
+from utils.anomaly_detection import IsolationForestTrainer, IsolationForestInference
 
 router = APIRouter()
 
-class Anomaly:
-    CustomerID: int
-    AccountBalance: float
-    LastLogin: str
-    Age: int
-    TransactionID: int
-    Amount: float
+# class Anomaly:
+#     CustomerID: int
+#     AccountBalance: float
+#     LastLogin: str
+#     Age: int
+#     TransactionID: int
+#     Amount: float
 
 @router.post("/anomaly_train_model")
 def anomaly_train_model(background_tasks: BackgroundTasks):
@@ -21,8 +21,8 @@ def anomaly_train_model(background_tasks: BackgroundTasks):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-@router.post("/anomaly_inference")
-async def anomaly_inference(
-    anomaly: Anomaly = Body(...)
-):
-    pass
+# @router.post("/anomaly_inference")
+# async def anomaly_inference(
+#     anomaly: Anomaly = Body(...)
+# ):
+#     inference = IsolationForestInference()
