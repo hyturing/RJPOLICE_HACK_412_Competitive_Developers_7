@@ -21,29 +21,30 @@ class IsolationForestTrainer:
         joblib.dump(self.model, model_path)
         print("Model trained and saved successfully.")
 
-# class IsolationForestInference:
-#     model = None  
-#     features = ['CustomerID', 'AccountBalance', 'LastLoginDays', 'Age', 'TransactionID', 'Amount']
+class IsolationForestInference:
+    model = None  
+    features = ['CustomerID', 'AccountBalance', 'LastLoginDays', 'Age', 'TransactionID', 'Amount']
 
-#     @staticmethod
-#     def load_model(model_path):
-#         IsolationForestInference.model = joblib.load(model_path)
-#         print("Model loaded successfully.")
+    @staticmethod
+    def load_model(model_path):
+        IsolationForestInference.model = joblib.load(model_path)
+        print("Model loaded successfully.")
 
-#     def preprocess_input(cls, input_data):
-#         input_df = pd.DataFrame([input_data], columns=cls.features)
-#         input_df['LastLoginDays'] = (input_df['LastLoginDays'] - input_df['LastLoginDays'].min()).dt.days
-#         return input_df
+    def preprocess_input(cls, input_data):
+        input_df = pd.DataFrame([input_data], columns=cls.features)
+        
+        input_df['LastLoginDays'] = (input_df['LastLoginDays'] - input_df['LastLoginDays'].min()).dt.days
+        return input_df
 
-#     def inference_single_input(cls, input_data):
-#         if cls.model is None:
-#             raise ValueError("Model not loaded. Load the model using load_model method.")
+    def inference_single_input(cls, input_data):
+        if cls.model is None:
+            raise ValueError("Model not loaded. Load the model using load_model method.")
 
-#         input_df = cls.preprocess_input(input_data)
+        input_df = cls.preprocess_input(input_data)
 
-#         prediction = cls.model.predict(input_df)
+        prediction = cls.model.predict(input_df)
 
-#         return prediction
+        return prediction
 
 # Example usage:
 # Training and saving the model
