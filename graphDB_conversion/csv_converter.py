@@ -13,8 +13,8 @@ import locale
 
 __all__ = []
 __version__ = 0.1
-__date__ = '2021-01-21'
-__updated__ = '2021-01-21'
+__date__ = '2024-01-01'
+__updated__ = '2024-01-01'
 
 class RawCSVConverter:
     def __init__(self, conf_file_names, gen_dup_file=False, use_s3=False, local_enc='utf-8'):
